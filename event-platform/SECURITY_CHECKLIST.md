@@ -1,0 +1,21 @@
+# Security Checklist
+
+- [x] All passwords hashed with bcrypt (min 10 rounds) — `lib/auth.ts`
+- [x] All tokens generated with `crypto.randomBytes` — `lib/auth.ts`
+- [x] All database queries use Prisma (no raw SQL) — throughout `app/api/`
+- [x] All user input validated with Zod — `lib/validation/`
+- [x] All HTML content sanitized — `lib/sanitize.ts`
+- [ ] File uploads validated by magic bytes (Cloudinary handles this)
+- [x] Rate limiting on all endpoints — `lib/middleware/rateLimit.ts`
+- [x] CSRF protection (Next.js built-in + SameSite cookies)
+- [x] JWT tokens have expiry (1 hour) — `lib/auth.ts`
+- [x] Invitation tokens expire (90 days after event) — `app/api/invitations/[token]/route.ts`
+- [x] Authorization checks on all write operations — `lib/middleware/auth.ts`
+- [x] Error messages don't expose system details — `lib/errors.ts`
+- [x] Security headers configured — `next.config.ts`
+- [ ] HTTPS enforced (Vercel handles this in production)
+- [ ] .env files in .gitignore (add before deploy)
+- [x] No secrets in code or logs
+- [x] Ownership verified before event modifications
+- [x] Invitation token hashed before DB storage
+- [x] XSS prevention via HTML escaping in email templates
