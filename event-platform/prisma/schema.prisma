@@ -1,0 +1,161 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  organizer
+  sponsor
+  admin
+}
+
+enum EventStatus {
+  draft
+  published
+  ongoing
+  completed
+  cancelled
+}
+
+enum EventType {
+  conference
+  workshop
+  meetup
+  expo
+  other
+}
+
+enum LocationType {
+  in_person
+  virtual
+  hybrid
+}
+
+enum InvitationStatus {
+  pending
+  sent
+  opened
+  accepted
+  declined
+}
+
+enum SponsorTier {
+  platinum
+  gold
+  silver
+  bronze
+}
+
+enum InteractionType {
+  booth_visit
+  material_download
+  meeting_request
+}
+
+model User {
+  id                String    @id @default(uuid())
+  email             String    @unique
+  password_hash     String
+  full_name         String
+  role              UserRole
+  organization_name String?
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+
+  events   Event[]
+  sponsors Sponsor[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model Event {
+  id               String      @id @default(uuid())
+  organizer_id     String
+  title            String
+  slug             String      @unique
+  description      String?
+  event_type       EventType
+  status           EventStatus @default(draft)
+  start_date       DateTime
+  end_date         DateTime
+  timezone         String
+  location_type    LocationType
+  venue_name       String?
+  venue_address    String?
+  max_attendees    Int?
+  banner_image_url String?
+  created_at       DateTime    @default(now())
+  updated_at       DateTime    @updatedAt
+
+  organizer   User         @relation(fields: [organizer_id], references: [id], onDelete: Cascade)
+  invitations Invitation[]
+  sponsors    Sponsor[]
+
+  @@index([organizer_id])
+  @@index([status])
+  @@index([start_date, end_date])
+  @@index([slug])
+}
+
+model Invitation {
+  id           String           @id @default(uuid())
+  event_id     String
+  email        String
+  full_name    String?
+  token_hash   String           @unique
+  status       InvitationStatus @default(pending)
+  custom_message String?
+  sent_at      DateTime?
+  opened_at    DateTime?
+  responded_at DateTime?
+  created_at   DateTime         @default(now())
+  updated_at   DateTime         @updatedAt
+
+  event Event @relation(fields: [event_id], references: [id], onDelete: Cascade)
+
+  @@unique([event_id, email])
+  @@index([token_hash])
+  @@index([event_id])
+  @@index([email])
+}
+
+model Sponsor {
+  id           String      @id @default(uuid())
+  event_id     String
+  user_id      String?
+  company_name String
+  tier         SponsorTier
+  logo_url     String?
+  website_url  String?
+  description  String?
+  booth_number String?
+  created_at   DateTime    @default(now())
+  updated_at   DateTime    @updatedAt
+
+  event Event         @relation(fields: [event_id], references: [id], onDelete: Cascade)
+  user  User?         @relation(fields: [user_id], references: [id], onDelete: SetNull)
+  leads SponsorLead[]
+
+  @@index([event_id])
+  @@index([user_id])
+}
+
+model SponsorLead {
+  id               String          @id @default(uuid())
+  sponsor_id       String
+  attendee_name    String
+  attendee_email   String
+  interaction_type InteractionType
+  notes            String?
+  created_at       DateTime        @default(now())
+  updated_at       DateTime        @updatedAt
+
+  sponsor Sponsor @relation(fields: [sponsor_id], references: [id], onDelete: Cascade)
+
+  @@index([sponsor_id])
+  @@index([created_at])
+}
