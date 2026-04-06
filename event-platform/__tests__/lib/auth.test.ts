@@ -41,6 +41,18 @@ describe('generateJWT / verifyJWT', () => {
   it('throws for invalid token', () => {
     expect(() => verifyJWT('invalid.token.here')).toThrow()
   })
+
+  it('throws a clear error when JWT_SECRET is missing', () => {
+    const previousSecret = process.env.JWT_SECRET
+    delete process.env.JWT_SECRET
+
+    try {
+      expect(() => generateJWT('user-123', 'test@example.com')).toThrow('JWT_SECRET is not configured')
+      expect(() => verifyJWT('invalid.token.here')).toThrow('JWT_SECRET is not configured')
+    } finally {
+      process.env.JWT_SECRET = previousSecret
+    }
+  })
 })
 
 describe('generateInvitationToken', () => {

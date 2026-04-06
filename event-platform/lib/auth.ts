@@ -2,8 +2,16 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
 
-const JWT_SECRET = process.env.JWT_SECRET!
 const SALT_ROUNDS = 10
+
+function getJwtSecret(): string {
+  const secret = process.env.JWT_SECRET
+  if (!secret) {
+    throw new Error('JWT_SECRET is not configured')
+  }
+
+  return secret
+}
 
 export async function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, SALT_ROUNDS)
@@ -14,15 +22,11 @@ export async function verifyPassword(password: string, hash: string): Promise<bo
 }
 
 export function generateJWT(userId: string, email: string): string {
-  return jwt.sign(
-    { sub: userId, email },
-    JWT_SECRET,
-    { expiresIn: '1h' }
-  )
+  return jwt.sign({ sub: userId, email }, getJwtSecret(), { expiresIn: '1h' })
 }
 
 export function verifyJWT(token: string): { sub: string; email: string } {
-  const payload = jwt.verify(token, JWT_SECRET) as { sub: string; email: string }
+  const payload = jwt.verify(token, getJwtSecret()) as { sub: string; email: string }
   return payload
 }
 

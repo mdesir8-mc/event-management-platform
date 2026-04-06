@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useAuth } from '@/lib/auth-context'
 import EventForm from '@/components/forms/EventForm'
+import { formatDateTimeInput } from '@/lib/datetime'
 
 interface Event {
   id: string
@@ -67,8 +68,6 @@ export default function EditEventPage({ params }: { params: Promise<{ id: string
 
   if (!event) return null
 
-  const toDatetimeLocal = (d: string) => new Date(d).toISOString().slice(0, 16)
-
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
       <div className="flex items-center gap-2 mb-2">
@@ -99,8 +98,8 @@ export default function EditEventPage({ params }: { params: Promise<{ id: string
             title: event.title,
             description: event.description ?? '',
             event_type: event.event_type,
-            start_date: toDatetimeLocal(event.start_date),
-            end_date: toDatetimeLocal(event.end_date),
+            start_date: formatDateTimeInput(event.start_date, event.timezone),
+            end_date: formatDateTimeInput(event.end_date, event.timezone),
             timezone: event.timezone,
             location_type: event.location_type,
             venue_name: event.venue_name ?? '',
