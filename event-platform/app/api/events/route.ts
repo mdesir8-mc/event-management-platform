@@ -5,6 +5,7 @@ import { handleApiError, ValidationError } from '@/lib/errors'
 import { sanitizeText } from '@/lib/sanitize'
 import { generateUniqueSlug } from '@/lib/slugify'
 import { checkRateLimit, RATE_LIMITS, getClientIp } from '@/lib/middleware/rateLimit'
+import { shouldIncludeAllOrganizerStatuses } from '@/lib/event-visibility'
 
 export async function GET(request: Request) {
   try {
@@ -19,9 +20,18 @@ export async function GET(request: Request) {
 
     const { status, event_type, organizer_id, page, limit } = result.data
 
+    let user = null
+    if (organizer_id) {
+      try {
+        user = await requireAuth(request)
+      } catch {
+        user = null
+      }
+    }
+
     const where: Record<string, unknown> = {}
     if (status) where.status = status
-    else where.status = 'published'
+    else if (!shouldIncludeAllOrganizerStatuses(organizer_id, user)) where.status = 'published'
     if (event_type) where.event_type = event_type
     if (organizer_id) where.organizer_id = organizer_id
 

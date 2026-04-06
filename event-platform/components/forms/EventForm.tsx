@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/auth-context'
+import { normalizeDateTimeInput } from '@/lib/datetime'
 
 const TIMEZONES = [
   'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles',
@@ -60,6 +61,8 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
 
     const payload = {
       ...form,
+      start_date: normalizeDateTimeInput(form.start_date, form.timezone),
+      end_date: normalizeDateTimeInput(form.end_date, form.timezone),
       max_attendees: form.max_attendees ? parseInt(form.max_attendees) : undefined,
       venue_name: form.location_type !== 'virtual' ? form.venue_name : undefined,
       venue_address: form.location_type !== 'virtual' ? form.venue_address : undefined,
@@ -279,20 +282,20 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
         </div>
       </div>
 
-      <div className="flex gap-3">
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="bg-blue-600 text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isLoading ? 'Saving...' : mode === 'create' ? 'Create Event' : 'Save Changes'}
-        </button>
+      <div className="flex justify-end gap-3 pt-4 border-t">
         <button
           type="button"
           onClick={() => router.back()}
-          className="text-gray-600 hover:text-gray-900 px-6 py-2 rounded-md text-sm font-medium border border-gray-300"
+          className="px-4 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50"
         >
           Cancel
+        </button>
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+        >
+          {isLoading ? 'Saving...' : mode === 'create' ? 'Create Event' : 'Save Changes'}
         </button>
       </div>
     </form>
