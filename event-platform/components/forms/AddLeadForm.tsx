@@ -58,7 +58,7 @@ export default function AddLeadForm({ sponsorId, onSuccess, onCancel }: AddLeadF
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="lead-name" className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+          <label htmlFor="lead-name" className="block text-sm font-medium text-stone-700 mb-1">Name *</label>
           <input
             id="lead-name"
             name="attendee_name"
@@ -67,11 +67,11 @@ export default function AddLeadForm({ sponsorId, onSuccess, onCancel }: AddLeadF
             minLength={2}
             value={form.attendee_name}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
           />
         </div>
         <div>
-          <label htmlFor="lead-email" className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+          <label htmlFor="lead-email" className="block text-sm font-medium text-stone-700 mb-1">Email *</label>
           <input
             id="lead-email"
             name="attendee_email"
@@ -79,20 +79,20 @@ export default function AddLeadForm({ sponsorId, onSuccess, onCancel }: AddLeadF
             required
             value={form.attendee_email}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="lead-type" className="block text-sm font-medium text-gray-700 mb-1">Interaction Type *</label>
+        <label htmlFor="lead-type" className="block text-sm font-medium text-stone-700 mb-1">Interaction Type *</label>
         <select
           id="lead-type"
           name="interaction_type"
           required
           value={form.interaction_type}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         >
           <option value="booth_visit">Booth Visit</option>
           <option value="material_download">Material Download</option>
@@ -101,7 +101,7 @@ export default function AddLeadForm({ sponsorId, onSuccess, onCancel }: AddLeadF
       </div>
 
       <div>
-        <label htmlFor="lead-notes" className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+        <label htmlFor="lead-notes" className="block text-sm font-medium text-stone-700 mb-1">Notes</label>
         <textarea
           id="lead-notes"
           name="notes"
@@ -109,7 +109,7 @@ export default function AddLeadForm({ sponsorId, onSuccess, onCancel }: AddLeadF
           maxLength={1000}
           value={form.notes}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         />
       </div>
 
@@ -117,11 +117,11 @@ export default function AddLeadForm({ sponsorId, onSuccess, onCancel }: AddLeadF
         <button
           type="submit"
           disabled={isLoading}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
+          className="bg-stone-800 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-stone-900 disabled:opacity-50"
         >
           {isLoading ? 'Adding...' : 'Add Lead'}
         </button>
-        <button type="button" onClick={onCancel} className="text-gray-600 px-4 py-2 rounded-md text-sm border border-gray-300">
+        <button type="button" onClick={onCancel} className="text-stone-600 px-4 py-2 rounded-md text-sm border border-stone-300">
           Cancel
         </button>
       </div>

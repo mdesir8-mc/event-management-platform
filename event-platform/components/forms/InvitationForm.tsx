@@ -51,7 +51,7 @@ export default function InvitationForm({ eventId, onSuccess, onCancel }: Invitat
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">{error}</div>
       )}
       <div>
-        <label htmlFor="inv-email" className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+        <label htmlFor="inv-email" className="block text-sm font-medium text-stone-700 mb-1">Email *</label>
         <input
           id="inv-email"
           name="email"
@@ -59,23 +59,23 @@ export default function InvitationForm({ eventId, onSuccess, onCancel }: Invitat
           required
           value={form.email}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         />
       </div>
       <div>
-        <label htmlFor="inv-name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+        <label htmlFor="inv-name" className="block text-sm font-medium text-stone-700 mb-1">Full Name</label>
         <input
           id="inv-name"
           name="full_name"
           type="text"
           value={form.full_name}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         />
       </div>
       <div>
-        <label htmlFor="inv-message" className="block text-sm font-medium text-gray-700 mb-1">
-          Custom Message <span className="text-gray-400 font-normal">(optional)</span>
+        <label htmlFor="inv-message" className="block text-sm font-medium text-stone-700 mb-1">
+          Custom Message <span className="text-stone-400 font-normal">(optional)</span>
         </label>
         <textarea
           id="inv-message"
@@ -84,18 +84,18 @@ export default function InvitationForm({ eventId, onSuccess, onCancel }: Invitat
           maxLength={1000}
           value={form.custom_message}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         />
       </div>
       <div className="flex gap-3 pt-2">
         <button
           type="submit"
           disabled={isLoading}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
+          className="bg-stone-800 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-stone-900 disabled:opacity-50"
         >
           {isLoading ? 'Sending...' : 'Send Invitation'}
         </button>
-        <button type="button" onClick={onCancel} className="text-gray-600 px-4 py-2 rounded-md text-sm border border-gray-300">
+        <button type="button" onClick={onCancel} className="text-stone-600 px-4 py-2 rounded-md text-sm border border-stone-300">
           Cancel
         </button>
       </div>

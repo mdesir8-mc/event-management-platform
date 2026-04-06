@@ -12,7 +12,7 @@ interface PieChartProps {
 export default function PieChart({ data, title }: PieChartProps) {
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-40 text-gray-400 text-sm">
+      <div className="flex items-center justify-center h-40 text-stone-400 text-sm">
         No data available
       </div>
     )
@@ -20,7 +20,7 @@ export default function PieChart({ data, title }: PieChartProps) {
 
   return (
     <div>
-      {title && <h3 className="text-sm font-medium text-gray-700 mb-3">{title}</h3>}
+      {title && <h3 className="text-sm font-medium text-stone-700 mb-3">{title}</h3>}
       <ResponsiveContainer width="100%" height={200}>
         <RechartsPieChart>
           <Pie data={data} cx="50%" cy="50%" outerRadius={70} dataKey="value" label>

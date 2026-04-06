@@ -55,15 +55,15 @@ export default function EventsDashboard() {
 
   const filtered = activeTab === 'all' ? events : events.filter((e) => e.status === activeTab)
 
-  if (authLoading) return <div className="flex items-center justify-center min-h-screen text-gray-500">Loading...</div>
+  if (authLoading) return <div className="flex items-center justify-center min-h-screen text-stone-500">Loading...</div>
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">My Events</h1>
+        <h1 className="text-2xl font-bold text-stone-900">My Events</h1>
         <Link
           href="/dashboard/events/new"
-          className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
+          className="bg-stone-800 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-stone-900"
         >
           + Create Event
         </Link>
@@ -76,8 +76,8 @@ export default function EventsDashboard() {
             onClick={() => setActiveTab(status)}
             className={`px-4 py-2 rounded-md text-sm font-medium capitalize whitespace-nowrap ${
               activeTab === status
-                ? 'bg-blue-600 text-white'
-                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                ? 'bg-stone-800 text-white'
+                : 'bg-stone-50 text-stone-600 border border-stone-200 hover:bg-stone-50'
             }`}
           >
             {status}
@@ -85,9 +85,9 @@ export default function EventsDashboard() {
         ))}
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="bg-stone-50 rounded-xl border border-stone-200 p-6">
         {isLoading ? (
-          <div className="text-center py-8 text-gray-500">Loading events...</div>
+          <div className="text-center py-8 text-stone-500">Loading events...</div>
         ) : (
           <EventTable
             events={filtered}

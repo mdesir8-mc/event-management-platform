@@ -20,5 +20,5 @@ export default function DashboardRedirect() {
     }
   }, [user, isLoading, router])
 
-  return <div className="flex items-center justify-center min-h-screen text-gray-500">Redirecting...</div>
+  return <div className="flex items-center justify-center min-h-screen text-stone-500">Redirecting...</div>
 }

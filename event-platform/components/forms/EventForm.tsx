@@ -102,7 +102,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
       )}
 
       <div>
-        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="title" className="block text-sm font-medium text-stone-700 mb-1">
           Event Title *
         </label>
         <input
@@ -114,12 +114,12 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
           maxLength={200}
           value={form.title}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         />
       </div>
 
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="description" className="block text-sm font-medium text-stone-700 mb-1">
           Description
         </label>
         <textarea
@@ -129,13 +129,13 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
           maxLength={10000}
           value={form.description}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="event_type" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="event_type" className="block text-sm font-medium text-stone-700 mb-1">
             Event Type *
           </label>
           <select
@@ -144,7 +144,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
             required
             value={form.event_type}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
           >
             {['conference', 'workshop', 'meetup', 'expo', 'other'].map((t) => (
               <option key={t} value={t} className="capitalize">{t}</option>
@@ -153,7 +153,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
         </div>
 
         <div>
-          <label htmlFor="timezone" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="timezone" className="block text-sm font-medium text-stone-700 mb-1">
             Timezone *
           </label>
           <select
@@ -162,7 +162,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
             required
             value={form.timezone}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
           >
             {TIMEZONES.map((tz) => (
               <option key={tz} value={tz}>{tz}</option>
@@ -173,7 +173,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="start_date" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="start_date" className="block text-sm font-medium text-stone-700 mb-1">
             Start Date & Time *
           </label>
           <input
@@ -183,11 +183,11 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
             required
             value={form.start_date}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
           />
         </div>
         <div>
-          <label htmlFor="end_date" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="end_date" className="block text-sm font-medium text-stone-700 mb-1">
             End Date & Time *
           </label>
           <input
@@ -197,13 +197,13 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
             required
             value={form.end_date}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Location Type *</label>
+        <label className="block text-sm font-medium text-stone-700 mb-2">Location Type *</label>
         <div className="flex gap-4">
           {['in_person', 'virtual', 'hybrid'].map((lt) => (
             <label key={lt} className="flex items-center gap-2 cursor-pointer">
@@ -223,7 +223,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
       {form.location_type !== 'virtual' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="venue_name" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="venue_name" className="block text-sm font-medium text-stone-700 mb-1">
               Venue Name
             </label>
             <input
@@ -232,11 +232,11 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
               type="text"
               value={form.venue_name}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
             />
           </div>
           <div>
-            <label htmlFor="venue_address" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="venue_address" className="block text-sm font-medium text-stone-700 mb-1">
               Venue Address
             </label>
             <input
@@ -245,7 +245,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
               type="text"
               value={form.venue_address}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
             />
           </div>
         </div>
@@ -253,7 +253,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="max_attendees" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="max_attendees" className="block text-sm font-medium text-stone-700 mb-1">
             Max Attendees
           </label>
           <input
@@ -263,11 +263,11 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
             min={1}
             value={form.max_attendees}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
           />
         </div>
         <div>
-          <label htmlFor="banner_image_url" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="banner_image_url" className="block text-sm font-medium text-stone-700 mb-1">
             Banner Image URL
           </label>
           <input
@@ -277,7 +277,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
             value={form.banner_image_url}
             onChange={handleChange}
             placeholder="https://..."
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
           />
         </div>
       </div>
@@ -286,14 +286,14 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
         <button
           type="button"
           onClick={() => router.back()}
-          className="px-4 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50"
+          className="px-4 py-2 text-sm border border-stone-300 rounded-md hover:bg-stone-50"
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={isLoading}
-          className="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+          className="px-4 py-2 text-sm bg-stone-800 text-white rounded-md hover:bg-stone-900 disabled:opacity-50"
         >
           {isLoading ? 'Saving...' : mode === 'create' ? 'Create Event' : 'Save Changes'}
         </button>

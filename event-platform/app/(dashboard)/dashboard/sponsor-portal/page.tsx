@@ -45,15 +45,15 @@ export default function SponsorPortalPage() {
   }, [token])
 
   if (authLoading || isLoading) {
-    return <div className="flex items-center justify-center min-h-screen text-gray-500">Loading...</div>
+    return <div className="flex items-center justify-center min-h-screen text-stone-500">Loading...</div>
   }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Sponsor Portal</h1>
+      <h1 className="text-2xl font-bold text-stone-900 mb-6">Sponsor Portal</h1>
 
       {sponsors.length === 0 ? (
-        <div className="bg-white rounded-xl border border-gray-200 p-12 text-center text-gray-500">
+        <div className="bg-stone-50 rounded-xl border border-stone-200 p-12 text-center text-stone-500">
           <p>You are not linked to any events as a sponsor yet.</p>
           <p className="text-sm mt-2">Contact an event organizer to get linked to your sponsorship.</p>
         </div>
@@ -61,17 +61,17 @@ export default function SponsorPortalPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {sponsors.map((sponsor) => (
             <Link key={sponsor.id} href={`/dashboard/sponsor-portal/${sponsor.id}`}>
-              <div className="bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all p-6">
+              <div className="bg-stone-50 rounded-xl border border-stone-200 hover:border-stone-400 hover:shadow-md transition-all p-6">
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="font-semibold text-gray-900">{sponsor.event.title}</h3>
+                  <h3 className="font-semibold text-stone-900">{sponsor.event.title}</h3>
                   <StatusBadge status={sponsor.event.status as never} type="event" />
                 </div>
-                <p className="text-sm text-gray-600 mb-2">{sponsor.company_name}</p>
+                <p className="text-sm text-stone-600 mb-2">{sponsor.company_name}</p>
                 <div className="flex items-center justify-between">
                   <StatusBadge status={sponsor.tier as never} type="tier" />
-                  <span className="text-sm text-gray-500">{sponsor._count.leads} leads</span>
+                  <span className="text-sm text-stone-500">{sponsor._count.leads} leads</span>
                 </div>
-                <p className="text-xs text-gray-400 mt-3">
+                <p className="text-xs text-stone-400 mt-3">
                   {new Date(sponsor.event.start_date).toLocaleDateString()} –{' '}
                   {new Date(sponsor.event.end_date).toLocaleDateString()}
                 </p>
