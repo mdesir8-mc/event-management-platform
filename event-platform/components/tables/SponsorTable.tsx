@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '@/lib/auth-context'
 import StatusBadge from '@/components/ui/StatusBadge'
 
@@ -24,6 +24,15 @@ export default function SponsorTable({ sponsors, onEdit, onDelete }: SponsorTabl
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null)
   const [deletingId, setDeletingId] = useState<string | null>(null)
 
+  useEffect(() => {
+    if (!confirmDeleteId) return
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') setConfirmDeleteId(null)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [confirmDeleteId])
+
   async function handleDelete(id: string) {
     setDeletingId(id)
     try {
@@ -39,37 +48,41 @@ export default function SponsorTable({ sponsors, onEdit, onDelete }: SponsorTabl
   }
 
   if (sponsors.length === 0) {
-    return <p className="text-gray-500 text-sm py-4">No sponsors added yet.</p>
+    return <p className="text-stone-500 text-sm py-4">No sponsors added yet.</p>
   }
+
+  const confirmSponsor = sponsors.find((s) => s.id === confirmDeleteId)
 
   return (
     <>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
+          <caption className="sr-only">List of event sponsors</caption>
           <thead>
-            <tr className="border-b border-gray-200 text-left">
-              <th className="pb-3 font-medium text-gray-700">Company</th>
-              <th className="pb-3 font-medium text-gray-700">Tier</th>
-              <th className="pb-3 font-medium text-gray-700">Booth</th>
-              <th className="pb-3 font-medium text-gray-700">Website</th>
-              <th className="pb-3 font-medium text-gray-700">Actions</th>
+            <tr className="border-b border-stone-200 text-left">
+              <th scope="col" className="pb-3 font-medium text-stone-700">Company</th>
+              <th scope="col" className="pb-3 font-medium text-stone-700">Tier</th>
+              <th scope="col" className="pb-3 font-medium text-stone-700">Booth</th>
+              <th scope="col" className="pb-3 font-medium text-stone-700">Website</th>
+              <th scope="col" className="pb-3 font-medium text-stone-700">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-stone-100">
             {sponsors.map((sponsor) => (
               <tr key={sponsor.id}>
-                <td className="py-3 font-medium text-gray-900">{sponsor.company_name}</td>
+                <td className="py-3 font-medium text-stone-900">{sponsor.company_name}</td>
                 <td className="py-3">
                   <StatusBadge status={sponsor.tier as never} type="tier" />
                 </td>
-                <td className="py-3 text-gray-600">{sponsor.booth_number || '—'}</td>
-                <td className="py-3 text-gray-600">
+                <td className="py-3 text-stone-600">{sponsor.booth_number || '—'}</td>
+                <td className="py-3 text-stone-600">
                   {sponsor.website_url ? (
                     <a
                       href={sponsor.website_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline"
+                      aria-label={`Visit ${sponsor.company_name} website`}
+                      className="text-stone-800 hover:underline"
                     >
                       Visit
                     </a>
@@ -79,13 +92,15 @@ export default function SponsorTable({ sponsors, onEdit, onDelete }: SponsorTabl
                   <div className="flex gap-2">
                     <button
                       onClick={() => onEdit(sponsor)}
-                      className="text-blue-600 hover:text-blue-700 text-xs"
+                      aria-label={`Edit sponsor: ${sponsor.company_name}`}
+                      className="text-stone-800 hover:text-stone-600 text-xs"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => setConfirmDeleteId(sponsor.id)}
-                      className="text-red-600 hover:text-red-700 text-xs"
+                      aria-label={`Remove sponsor: ${sponsor.company_name}`}
+                      className="text-red-700 hover:text-red-700 text-xs"
                     >
                       Delete
                     </button>
@@ -98,14 +113,20 @@ export default function SponsorTable({ sponsors, onEdit, onDelete }: SponsorTabl
       </div>
 
       {confirmDeleteId && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Remove Sponsor</h3>
-            <p className="text-gray-600 text-sm mb-4">
-              Are you sure you want to remove this sponsor? This will also delete all their leads.
+        <div
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="delete-sponsor-dialog-title"
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+        >
+          <div className="bg-stone-50 rounded-lg p-6 max-w-md w-full mx-4">
+            <h3 id="delete-sponsor-dialog-title" className="text-lg font-semibold text-stone-900 mb-2">Remove Sponsor</h3>
+            <p className="text-stone-600 text-sm mb-4">
+              Are you sure you want to remove{confirmSponsor ? ` ${confirmSponsor.company_name}` : ' this sponsor'}? This will also delete all their leads.
             </p>
             <div className="flex gap-3">
               <button
+                autoFocus
                 onClick={() => handleDelete(confirmDeleteId)}
                 disabled={deletingId === confirmDeleteId}
                 className="bg-red-600 text-white px-4 py-2 rounded-md text-sm hover:bg-red-700 disabled:opacity-50"
@@ -114,7 +135,7 @@ export default function SponsorTable({ sponsors, onEdit, onDelete }: SponsorTabl
               </button>
               <button
                 onClick={() => setConfirmDeleteId(null)}
-                className="text-gray-600 px-4 py-2 rounded-md text-sm border border-gray-300"
+                className="text-stone-600 px-4 py-2 rounded-md text-sm border border-stone-300"
               >
                 Cancel
               </button>

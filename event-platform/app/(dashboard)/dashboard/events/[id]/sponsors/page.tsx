@@ -29,6 +29,15 @@ export default function SponsorsPage({ params }: { params: Promise<{ id: string 
     if (!authLoading && !user) router.replace('/login')
   }, [user, authLoading, router])
 
+  useEffect(() => {
+    if (!showModal) return
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') setShowModal(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [showModal])
+
   const fetchSponsors = useCallback(async (id: string) => {
     if (!token) return
     setIsLoading(true)
@@ -55,23 +64,23 @@ export default function SponsorsPage({ params }: { params: Promise<{ id: string 
     count: sponsors.filter((s) => s.tier === tier).length,
   }))
 
-  if (authLoading) return <div className="flex items-center justify-center min-h-screen text-gray-500">Loading...</div>
+  if (authLoading) return <div role="status" className="flex items-center justify-center min-h-screen text-stone-500">Loading...</div>
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="flex items-center gap-2 mb-2">
-        <Link href="/dashboard/events" className="text-blue-600 hover:underline text-sm">My Events</Link>
-        <span className="text-gray-400">/</span>
-        <Link href={`/dashboard/events/${eventId}`} className="text-blue-600 hover:underline text-sm">Event</Link>
-        <span className="text-gray-400">/</span>
-        <span className="text-sm text-gray-600">Sponsors</span>
-      </div>
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-2">
+        <Link href="/dashboard/events" className="text-stone-800 hover:underline text-sm">My Events</Link>
+        <span aria-hidden="true" className="text-stone-400">/</span>
+        <Link href={`/dashboard/events/${eventId}`} className="text-stone-800 hover:underline text-sm">Event</Link>
+        <span aria-hidden="true" className="text-stone-400">/</span>
+        <span aria-current="page" className="text-sm text-stone-600">Sponsors</span>
+      </nav>
 
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Sponsors</h1>
+        <h1 className="text-2xl font-bold text-stone-900">Sponsors</h1>
         <button
           onClick={() => { setEditingSponsor(null); setShowModal(true) }}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
+          className="bg-stone-800 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-stone-900"
         >
           Add Sponsor
         </button>
@@ -79,16 +88,16 @@ export default function SponsorsPage({ params }: { params: Promise<{ id: string 
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {tierCounts.map(({ tier, count }) => (
-          <div key={tier} className="bg-white rounded-xl border border-gray-200 p-4">
-            <p className="text-xs text-gray-500 mb-1 capitalize">{tier}</p>
-            <p className="text-2xl font-bold text-gray-900">{count}</p>
+          <div key={tier} className="bg-stone-50 rounded-xl border border-stone-200 p-4">
+            <p className="text-xs text-stone-500 mb-1 capitalize">{tier}</p>
+            <p className="text-2xl font-bold text-stone-900">{count}</p>
           </div>
         ))}
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="bg-stone-50 rounded-xl border border-stone-200 p-6">
         {isLoading ? (
-          <div className="text-center py-8 text-gray-500">Loading sponsors...</div>
+          <div role="status" aria-live="polite" className="text-center py-8 text-stone-500">Loading sponsors...</div>
         ) : (
           <SponsorTable
             sponsors={sponsors}
@@ -99,9 +108,14 @@ export default function SponsorsPage({ params }: { params: Promise<{ id: string 
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-xl p-6 max-w-lg w-full max-h-screen overflow-y-auto">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="sponsor-form-dialog-title"
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4"
+        >
+          <div className="bg-stone-50 rounded-xl p-6 max-w-lg w-full max-h-screen overflow-y-auto">
+            <h2 id="sponsor-form-dialog-title" className="text-lg font-semibold text-stone-900 mb-4">
               {editingSponsor ? 'Edit Sponsor' : 'Add Sponsor'}
             </h2>
             <SponsorForm

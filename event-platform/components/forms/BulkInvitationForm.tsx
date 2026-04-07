@@ -93,41 +93,44 @@ export default function BulkInvitationForm({ eventId, onSuccess, onCancel }: Bul
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">{error}</div>
+        <div role="alert" className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">{error}</div>
       )}
 
       <div className="flex items-center justify-between">
-        <label className="block text-sm font-medium text-gray-700">Upload CSV File</label>
-        <button type="button" onClick={downloadTemplate} className="text-xs text-blue-600 hover:underline">
+        <label htmlFor="bulk-csv-upload" className="block text-sm font-medium text-stone-700">Upload CSV File</label>
+        <button type="button" onClick={downloadTemplate} className="text-xs text-stone-700 hover:underline">
           Download Template
         </button>
       </div>
 
       <input
+        id="bulk-csv-upload"
         type="file"
         accept=".csv"
+        aria-describedby="csv-format-hint"
         onChange={handleFile}
-        className="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+        className="w-full text-sm text-stone-600 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-stone-100 file:text-stone-700 hover:file:bg-stone-200"
       />
 
       {preview.length > 0 && (
         <div>
-          <p className="text-xs text-gray-500 mb-2">
+          <p id="csv-format-hint" className="text-xs text-stone-500 mb-2">
             Preview (first {Math.min(10, preview.length)} of {parsed.length} rows):
           </p>
-          <div className="overflow-x-auto max-h-40 border border-gray-200 rounded-md">
+          <div className="overflow-x-auto max-h-40 border border-stone-200 rounded-md">
             <table className="text-xs w-full">
-              <thead className="bg-gray-50">
+              <caption className="sr-only">CSV preview</caption>
+              <thead className="bg-stone-50">
                 <tr>
-                  <th className="px-3 py-2 text-left text-gray-600">Email</th>
-                  <th className="px-3 py-2 text-left text-gray-600">Name</th>
+                  <th scope="col" className="px-3 py-2 text-left text-stone-600">Email</th>
+                  <th scope="col" className="px-3 py-2 text-left text-stone-600">Name</th>
                 </tr>
               </thead>
               <tbody>
                 {preview.map((row, i) => (
-                  <tr key={i} className="border-t border-gray-100">
-                    <td className="px-3 py-2 text-gray-900">{row.email}</td>
-                    <td className="px-3 py-2 text-gray-600">{row.full_name || '—'}</td>
+                  <tr key={i} className="border-t border-stone-100">
+                    <td className="px-3 py-2 text-stone-900">{row.email}</td>
+                    <td className="px-3 py-2 text-stone-600">{row.full_name || '—'}</td>
                   </tr>
                 ))}
               </tbody>
@@ -140,11 +143,11 @@ export default function BulkInvitationForm({ eventId, onSuccess, onCancel }: Bul
         <button
           type="submit"
           disabled={isLoading || parsed.length === 0}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
+          className="bg-stone-800 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-stone-900 disabled:opacity-50"
         >
           {isLoading ? 'Uploading...' : `Send ${parsed.length} Invitations`}
         </button>
-        <button type="button" onClick={onCancel} className="text-gray-600 px-4 py-2 rounded-md text-sm border border-gray-300">
+        <button type="button" onClick={onCancel} className="text-stone-600 px-4 py-2 rounded-md text-sm border border-stone-300">
           Cancel
         </button>
       </div>

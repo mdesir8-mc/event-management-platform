@@ -73,32 +73,34 @@ export default function SponsorForm({ eventId, initialData, mode, onSuccess, onC
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">{error}</div>
+        <div role="alert" className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">{error}</div>
       )}
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="sp-name" className="block text-sm font-medium text-gray-700 mb-1">Company Name *</label>
+          <label htmlFor="sp-name" className="block text-sm font-medium text-stone-700 mb-1">Company Name *</label>
           <input
             id="sp-name"
             name="company_name"
             type="text"
             required
+            aria-required="true"
             minLength={2}
             value={form.company_name}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
           />
         </div>
         <div>
-          <label htmlFor="sp-tier" className="block text-sm font-medium text-gray-700 mb-1">Tier *</label>
+          <label htmlFor="sp-tier" className="block text-sm font-medium text-stone-700 mb-1">Tier *</label>
           <select
             id="sp-tier"
             name="tier"
             required
+            aria-required="true"
             value={form.tier}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
           >
             {['platinum', 'gold', 'silver', 'bronze'].map((t) => (
               <option key={t} value={t} className="capitalize">{t}</option>
@@ -109,7 +111,7 @@ export default function SponsorForm({ eventId, initialData, mode, onSuccess, onC
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="sp-website" className="block text-sm font-medium text-gray-700 mb-1">Website URL</label>
+          <label htmlFor="sp-website" className="block text-sm font-medium text-stone-700 mb-1">Website URL</label>
           <input
             id="sp-website"
             name="website_url"
@@ -117,11 +119,11 @@ export default function SponsorForm({ eventId, initialData, mode, onSuccess, onC
             value={form.website_url}
             onChange={handleChange}
             placeholder="https://..."
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
           />
         </div>
         <div>
-          <label htmlFor="sp-booth" className="block text-sm font-medium text-gray-700 mb-1">Booth Number</label>
+          <label htmlFor="sp-booth" className="block text-sm font-medium text-stone-700 mb-1">Booth Number</label>
           <input
             id="sp-booth"
             name="booth_number"
@@ -129,13 +131,13 @@ export default function SponsorForm({ eventId, initialData, mode, onSuccess, onC
             maxLength={50}
             value={form.booth_number}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="sp-logo" className="block text-sm font-medium text-gray-700 mb-1">Logo URL</label>
+        <label htmlFor="sp-logo" className="block text-sm font-medium text-stone-700 mb-1">Logo URL</label>
         <input
           id="sp-logo"
           name="logo_url"
@@ -143,12 +145,12 @@ export default function SponsorForm({ eventId, initialData, mode, onSuccess, onC
           value={form.logo_url}
           onChange={handleChange}
           placeholder="https://..."
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         />
       </div>
 
       <div>
-        <label htmlFor="sp-desc" className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+        <label htmlFor="sp-desc" className="block text-sm font-medium text-stone-700 mb-1">Description</label>
         <textarea
           id="sp-desc"
           name="description"
@@ -156,13 +158,13 @@ export default function SponsorForm({ eventId, initialData, mode, onSuccess, onC
           maxLength={5000}
           value={form.description}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         />
       </div>
 
       <div>
-        <label htmlFor="sp-user" className="block text-sm font-medium text-gray-700 mb-1">
-          Sponsor User ID <span className="text-gray-400 font-normal">(optional, links to sponsor account)</span>
+        <label htmlFor="sp-user" className="block text-sm font-medium text-stone-700 mb-1">
+          Sponsor User ID <span className="text-stone-600 font-normal">(optional, links to sponsor account)</span>
         </label>
         <input
           id="sp-user"
@@ -171,7 +173,7 @@ export default function SponsorForm({ eventId, initialData, mode, onSuccess, onC
           value={form.user_id}
           onChange={handleChange}
           placeholder="UUID of sponsor user"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         />
       </div>
 
@@ -179,11 +181,11 @@ export default function SponsorForm({ eventId, initialData, mode, onSuccess, onC
         <button
           type="submit"
           disabled={isLoading}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
+          className="bg-stone-800 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-stone-900 disabled:opacity-50"
         >
           {isLoading ? 'Saving...' : mode === 'create' ? 'Add Sponsor' : 'Save Changes'}
         </button>
-        <button type="button" onClick={onCancel} className="text-gray-600 px-4 py-2 rounded-md text-sm border border-gray-300">
+        <button type="button" onClick={onCancel} className="text-stone-600 px-4 py-2 rounded-md text-sm border border-stone-300">
           Cancel
         </button>
       </div>

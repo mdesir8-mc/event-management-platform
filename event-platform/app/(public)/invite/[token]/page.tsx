@@ -109,7 +109,7 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
   }
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center text-gray-500">Loading invitation...</div>
+    return <div className="min-h-screen flex items-center justify-center text-stone-500">Loading invitation...</div>
   }
 
   if (error) {
@@ -127,14 +127,14 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12">
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-8 max-w-lg w-full">
+      <div className="bg-stone-50 rounded-xl border border-stone-200 shadow-sm p-8 max-w-lg w-full">
         {responded ? (
           <div className="text-center">
             <div className={`text-4xl mb-4`}>{responseStatus === 'accepted' ? '🎉' : '👋'}</div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            <h1 className="text-2xl font-bold text-stone-900 mb-2">
               {responseStatus === 'accepted' ? 'See you there!' : 'Maybe next time!'}
             </h1>
-            <p className="text-gray-600 mb-6">
+            <p className="text-stone-600 mb-6">
               {responseStatus === 'accepted'
                 ? `You've accepted the invitation to ${invitation.event.title}.`
                 : `You've declined the invitation to ${invitation.event.title}.`}
@@ -142,7 +142,7 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
             {responseStatus === 'accepted' && (
               <button
                 onClick={generateICS}
-                className="bg-blue-600 text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
+                className="bg-stone-800 text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-stone-900"
               >
                 Add to Calendar
               </button>
@@ -150,14 +150,14 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
           </div>
         ) : (
           <>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">You&apos;re Invited!</h1>
+            <h1 className="text-2xl font-bold text-stone-900 mb-2">You&apos;re Invited!</h1>
             {invitation.full_name && (
-              <p className="text-gray-600 mb-4">Hi {invitation.full_name},</p>
+              <p className="text-stone-600 mb-4">Hi {invitation.full_name},</p>
             )}
 
-            <div className="bg-gray-50 rounded-lg p-4 mb-6">
-              <h2 className="font-semibold text-gray-900 text-lg mb-3">{invitation.event.title}</h2>
-              <div className="space-y-2 text-sm text-gray-600">
+            <div className="bg-stone-50 rounded-lg p-4 mb-6">
+              <h2 className="font-semibold text-stone-900 text-lg mb-3">{invitation.event.title}</h2>
+              <div className="space-y-2 text-sm text-stone-600">
                 <p>
                   <span className="font-medium">Date:</span>{' '}
                   {new Date(invitation.event.start_date).toLocaleDateString()} –{' '}
@@ -176,7 +176,7 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
             </div>
 
             {invitation.event.description && (
-              <p className="text-gray-600 text-sm mb-6 line-clamp-3">{invitation.event.description}</p>
+              <p className="text-stone-600 text-sm mb-6 line-clamp-3">{invitation.event.description}</p>
             )}
 
             <div className="flex gap-3">
@@ -190,7 +190,7 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
               <button
                 onClick={() => respondToInvitation(token, 'declined')}
                 disabled={isResponding}
-                className="flex-1 bg-red-50 text-red-600 border border-red-200 py-3 rounded-md font-medium hover:bg-red-100 disabled:opacity-50"
+                className="flex-1 bg-red-50 text-red-700 border border-red-200 py-3 rounded-md font-medium hover:bg-red-100 disabled:opacity-50"
               >
                 {isResponding ? '...' : 'Decline'}
               </button>

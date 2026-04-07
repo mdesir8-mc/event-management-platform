@@ -5,25 +5,25 @@ type InvitationStatus = 'pending' | 'sent' | 'opened' | 'accepted' | 'declined'
 type SponsorTier = 'platinum' | 'gold' | 'silver' | 'bronze'
 
 const EVENT_STATUS_COLORS: Record<EventStatus, string> = {
-  draft: 'bg-gray-100 text-gray-700',
-  published: 'bg-blue-100 text-blue-700',
-  ongoing: 'bg-green-100 text-green-700',
-  completed: 'bg-purple-100 text-purple-700',
+  draft: 'bg-stone-100 text-stone-600',
+  published: 'bg-amber-100 text-amber-800',
+  ongoing: 'bg-emerald-100 text-emerald-700',
+  completed: 'bg-stone-200 text-stone-700',
   cancelled: 'bg-red-100 text-red-700',
 }
 
 const INVITATION_STATUS_COLORS: Record<InvitationStatus, string> = {
-  pending: 'bg-gray-100 text-gray-700',
-  sent: 'bg-blue-100 text-blue-700',
-  opened: 'bg-yellow-100 text-yellow-700',
-  accepted: 'bg-green-100 text-green-700',
+  pending: 'bg-stone-100 text-stone-600',
+  sent: 'bg-amber-100 text-amber-800',
+  opened: 'bg-amber-100 text-amber-700',
+  accepted: 'bg-emerald-100 text-emerald-700',
   declined: 'bg-red-100 text-red-700',
 }
 
 const SPONSOR_TIER_COLORS: Record<SponsorTier, string> = {
-  platinum: 'bg-purple-100 text-purple-700',
-  gold: 'bg-yellow-100 text-yellow-700',
-  silver: 'bg-gray-100 text-gray-700',
+  platinum: 'bg-stone-200 text-stone-700',
+  gold: 'bg-amber-100 text-amber-700',
+  silver: 'bg-stone-100 text-stone-600',
   bronze: 'bg-orange-100 text-orange-700',
 }
 
@@ -33,7 +33,7 @@ interface StatusBadgeProps {
 }
 
 export default function StatusBadge({ status, type = 'event' }: StatusBadgeProps) {
-  let colorClass = 'bg-gray-100 text-gray-700'
+  let colorClass = 'bg-stone-100 text-stone-600'
 
   if (type === 'event') colorClass = EVENT_STATUS_COLORS[status as EventStatus] ?? colorClass
   else if (type === 'invitation') colorClass = INVITATION_STATUS_COLORS[status as InvitationStatus] ?? colorClass

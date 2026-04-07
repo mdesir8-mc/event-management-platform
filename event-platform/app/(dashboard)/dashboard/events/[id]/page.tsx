@@ -63,34 +63,34 @@ export default function EditEventPage({ params }: { params: Promise<{ id: string
   }
 
   if (authLoading || isLoading) {
-    return <div className="flex items-center justify-center min-h-screen text-gray-500">Loading...</div>
+    return <div className="flex items-center justify-center min-h-screen text-stone-500">Loading...</div>
   }
 
   if (!event) return null
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
-      <div className="flex items-center gap-2 mb-2">
-        <Link href="/dashboard/events" className="text-blue-600 hover:underline text-sm">My Events</Link>
-        <span className="text-gray-400">/</span>
-        <span className="text-sm text-gray-600">{event.title}</span>
-      </div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">Edit Event</h1>
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-2">
+        <Link href="/dashboard/events" className="text-stone-800 hover:underline text-sm">My Events</Link>
+        <span aria-hidden="true" className="text-stone-400">/</span>
+        <span aria-current="page" className="text-sm text-stone-600">{event.title}</span>
+      </nav>
+      <h1 className="text-2xl font-bold text-stone-900 mb-2">Edit Event</h1>
       <div className="flex gap-2 mb-6">
         <Link
           href={`/dashboard/events/${id}/invitations`}
-          className="text-sm text-blue-600 border border-blue-200 px-3 py-1 rounded-md hover:bg-blue-50"
+          className="text-sm text-stone-800 border border-amber-200 px-3 py-1 rounded-md hover:bg-amber-50"
         >
           Invitations
         </Link>
         <Link
           href={`/dashboard/events/${id}/sponsors`}
-          className="text-sm text-blue-600 border border-blue-200 px-3 py-1 rounded-md hover:bg-blue-50"
+          className="text-sm text-stone-800 border border-amber-200 px-3 py-1 rounded-md hover:bg-amber-50"
         >
           Sponsors
         </Link>
       </div>
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="bg-stone-50 rounded-xl border border-stone-200 p-6">
         <EventForm
           mode="edit"
           initialData={{
