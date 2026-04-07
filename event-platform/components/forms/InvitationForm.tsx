@@ -48,7 +48,7 @@ export default function InvitationForm({ eventId, onSuccess, onCancel }: Invitat
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">{error}</div>
+        <div role="alert" className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">{error}</div>
       )}
       <div>
         <label htmlFor="inv-email" className="block text-sm font-medium text-stone-700 mb-1">Email *</label>
@@ -57,6 +57,7 @@ export default function InvitationForm({ eventId, onSuccess, onCancel }: Invitat
           name="email"
           type="email"
           required
+          aria-required="true"
           value={form.email}
           onChange={handleChange}
           className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
@@ -75,7 +76,7 @@ export default function InvitationForm({ eventId, onSuccess, onCancel }: Invitat
       </div>
       <div>
         <label htmlFor="inv-message" className="block text-sm font-medium text-stone-700 mb-1">
-          Custom Message <span className="text-stone-400 font-normal">(optional)</span>
+          Custom Message <span className="text-stone-600 font-normal">(optional)</span>
         </label>
         <textarea
           id="inv-message"

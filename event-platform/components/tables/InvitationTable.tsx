@@ -24,14 +24,15 @@ export default function InvitationTable({ invitations, onResend }: InvitationTab
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
+        <caption className="sr-only">List of sent invitations</caption>
         <thead>
           <tr className="border-b border-stone-200 text-left">
-            <th className="pb-3 font-medium text-stone-700">Email</th>
-            <th className="pb-3 font-medium text-stone-700">Name</th>
-            <th className="pb-3 font-medium text-stone-700">Status</th>
-            <th className="pb-3 font-medium text-stone-700">Sent</th>
-            <th className="pb-3 font-medium text-stone-700">Responded</th>
-            <th className="pb-3 font-medium text-stone-700">Actions</th>
+            <th scope="col" className="pb-3 font-medium text-stone-700">Email</th>
+            <th scope="col" className="pb-3 font-medium text-stone-700">Name</th>
+            <th scope="col" className="pb-3 font-medium text-stone-700">Status</th>
+            <th scope="col" className="pb-3 font-medium text-stone-700">Sent</th>
+            <th scope="col" className="pb-3 font-medium text-stone-700">Responded</th>
+            <th scope="col" className="pb-3 font-medium text-stone-700">Actions</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-stone-100">
@@ -51,6 +52,7 @@ export default function InvitationTable({ invitations, onResend }: InvitationTab
               <td className="py-3">
                 <button
                   onClick={() => onResend(inv)}
+                  aria-label={`Resend invitation to ${inv.email}`}
                   className="text-stone-800 hover:text-stone-600 text-xs"
                 >
                   Resend

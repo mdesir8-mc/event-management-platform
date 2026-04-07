@@ -60,35 +60,47 @@ export default function SearchPage() {
     <div className="max-w-7xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-stone-900 mb-6">Browse Events</h1>
 
-      <form onSubmit={handleSearch} className="bg-stone-50 rounded-xl border border-stone-200 p-4 mb-6">
+      <form onSubmit={handleSearch} aria-label="Search and filter events" className="bg-stone-50 rounded-xl border border-stone-200 p-4 mb-6">
         <div className="flex flex-col sm:flex-row gap-3">
-          <input
-            type="text"
-            placeholder="Search events..."
-            value={filters.query}
-            onChange={(e) => setFilters((f) => ({ ...f, query: e.target.value }))}
-            className="flex-1 border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
-          />
-          <select
-            value={filters.event_type}
-            onChange={(e) => setFilters((f) => ({ ...f, event_type: e.target.value }))}
-            className="border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
-          >
-            <option value="">All Types</option>
-            {['conference', 'workshop', 'meetup', 'expo', 'other'].map((t) => (
-              <option key={t} value={t} className="capitalize">{t}</option>
-            ))}
-          </select>
-          <select
-            value={filters.location_type}
-            onChange={(e) => setFilters((f) => ({ ...f, location_type: e.target.value }))}
-            className="border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
-          >
-            <option value="">All Locations</option>
-            <option value="in_person">In Person</option>
-            <option value="virtual">Virtual</option>
-            <option value="hybrid">Hybrid</option>
-          </select>
+          <div className="flex-1">
+            <label htmlFor="search-query" className="sr-only">Search events</label>
+            <input
+              id="search-query"
+              type="text"
+              placeholder="Search events..."
+              value={filters.query}
+              onChange={(e) => setFilters((f) => ({ ...f, query: e.target.value }))}
+              className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
+            />
+          </div>
+          <div>
+            <label htmlFor="filter-type" className="sr-only">Filter by event type</label>
+            <select
+              id="filter-type"
+              value={filters.event_type}
+              onChange={(e) => setFilters((f) => ({ ...f, event_type: e.target.value }))}
+              className="border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
+            >
+              <option value="">All Types</option>
+              {['conference', 'workshop', 'meetup', 'expo', 'other'].map((t) => (
+                <option key={t} value={t} className="capitalize">{t}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="filter-location" className="sr-only">Filter by location type</label>
+            <select
+              id="filter-location"
+              value={filters.location_type}
+              onChange={(e) => setFilters((f) => ({ ...f, location_type: e.target.value }))}
+              className="border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
+            >
+              <option value="">All Locations</option>
+              <option value="in_person">In Person</option>
+              <option value="virtual">Virtual</option>
+              <option value="hybrid">Hybrid</option>
+            </select>
+          </div>
           <button
             type="submit"
             className="bg-stone-800 text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-stone-900"
@@ -99,15 +111,15 @@ export default function SearchPage() {
       </form>
 
       {isLoading ? (
-        <div className="text-center py-12 text-stone-500">Loading events...</div>
+        <div role="status" aria-live="polite" className="text-center py-12 text-stone-500">Loading events...</div>
       ) : events.length === 0 ? (
-        <div className="text-center py-12 text-stone-500">No events found matching your criteria.</div>
+        <div role="status" className="text-center py-12 text-stone-500">No events found matching your criteria.</div>
       ) : (
         <>
-          <p className="text-sm text-stone-600 mb-4">{total} events found</p>
+          <p role="status" aria-live="polite" className="text-sm text-stone-600 mb-4">{total} events found</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {events.map((event) => (
-              <Link key={event.id} href={`/events/${event.slug}`}>
+              <Link key={event.id} href={`/events/${event.slug}`} aria-label={`View event: ${event.title}`}>
                 <div className="bg-stone-50 rounded-xl border border-stone-200 hover:border-stone-400 hover:shadow-md transition-all overflow-hidden">
                   {event.banner_image_url && (
                     <div className="relative h-40 bg-stone-100">
@@ -136,25 +148,27 @@ export default function SearchPage() {
           </div>
 
           {pages > 1 && (
-            <div className="flex justify-center gap-2 mt-8">
+            <nav aria-label="Search results pagination" className="flex justify-center gap-2 mt-8">
               <button
                 onClick={() => fetchEvents(page - 1)}
                 disabled={page <= 1}
+                aria-label="Previous page of search results"
                 className="px-4 py-2 text-sm border rounded-md disabled:opacity-50"
               >
                 Previous
               </button>
-              <span className="px-4 py-2 text-sm text-stone-600">
+              <span aria-current="page" className="px-4 py-2 text-sm text-stone-600">
                 Page {page} of {pages}
               </span>
               <button
                 onClick={() => fetchEvents(page + 1)}
                 disabled={page >= pages}
+                aria-label="Next page of search results"
                 className="px-4 py-2 text-sm border rounded-md disabled:opacity-50"
               >
                 Next
               </button>
-            </div>
+            </nav>
           )}
         </>
       )}

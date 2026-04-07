@@ -35,10 +35,10 @@ export default function Navbar() {
                   Sponsor Portal
                 </Link>
               )}
-              <span className="text-sm text-stone-500">{user.full_name}</span>
+              <span className="text-sm text-stone-700">{user.full_name}</span>
               <button
                 onClick={handleLogout}
-                className="text-sm text-red-700 hover:text-red-800"
+                className="text-sm text-red-700 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-stone-500 rounded"
               >
                 Logout
               </button>

@@ -96,7 +96,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
+        <div role="alert" className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
           {error}
         </div>
       )}
@@ -110,6 +110,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
           name="title"
           type="text"
           required
+          aria-required="true"
           minLength={3}
           maxLength={200}
           value={form.title}
@@ -142,6 +143,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
             id="event_type"
             name="event_type"
             required
+            aria-required="true"
             value={form.event_type}
             onChange={handleChange}
             className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
@@ -160,6 +162,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
             id="timezone"
             name="timezone"
             required
+            aria-required="true"
             value={form.timezone}
             onChange={handleChange}
             className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
@@ -181,6 +184,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
             name="start_date"
             type="datetime-local"
             required
+            aria-required="true"
             value={form.start_date}
             onChange={handleChange}
             className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
@@ -195,6 +199,7 @@ export default function EventForm({ initialData, mode }: EventFormProps) {
             name="end_date"
             type="datetime-local"
             required
+            aria-required="true"
             value={form.end_date}
             onChange={handleChange}
             className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"

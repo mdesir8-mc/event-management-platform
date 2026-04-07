@@ -53,7 +53,7 @@ export default function AddLeadForm({ sponsorId, onSuccess, onCancel }: AddLeadF
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">{error}</div>
+        <div role="alert" className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">{error}</div>
       )}
 
       <div className="grid grid-cols-2 gap-4">
@@ -64,6 +64,7 @@ export default function AddLeadForm({ sponsorId, onSuccess, onCancel }: AddLeadF
             name="attendee_name"
             type="text"
             required
+            aria-required="true"
             minLength={2}
             value={form.attendee_name}
             onChange={handleChange}
@@ -77,6 +78,7 @@ export default function AddLeadForm({ sponsorId, onSuccess, onCancel }: AddLeadF
             name="attendee_email"
             type="email"
             required
+            aria-required="true"
             value={form.attendee_email}
             onChange={handleChange}
             className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
@@ -90,6 +92,7 @@ export default function AddLeadForm({ sponsorId, onSuccess, onCancel }: AddLeadF
           id="lead-type"
           name="interaction_type"
           required
+          aria-required="true"
           value={form.interaction_type}
           onChange={handleChange}
           className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"

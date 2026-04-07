@@ -93,34 +93,37 @@ export default function BulkInvitationForm({ eventId, onSuccess, onCancel }: Bul
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">{error}</div>
+        <div role="alert" className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">{error}</div>
       )}
 
       <div className="flex items-center justify-between">
-        <label className="block text-sm font-medium text-stone-700">Upload CSV File</label>
+        <label htmlFor="bulk-csv-upload" className="block text-sm font-medium text-stone-700">Upload CSV File</label>
         <button type="button" onClick={downloadTemplate} className="text-xs text-stone-700 hover:underline">
           Download Template
         </button>
       </div>
 
       <input
+        id="bulk-csv-upload"
         type="file"
         accept=".csv"
+        aria-describedby="csv-format-hint"
         onChange={handleFile}
         className="w-full text-sm text-stone-600 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-stone-100 file:text-stone-700 hover:file:bg-stone-200"
       />
 
       {preview.length > 0 && (
         <div>
-          <p className="text-xs text-stone-500 mb-2">
+          <p id="csv-format-hint" className="text-xs text-stone-500 mb-2">
             Preview (first {Math.min(10, preview.length)} of {parsed.length} rows):
           </p>
           <div className="overflow-x-auto max-h-40 border border-stone-200 rounded-md">
             <table className="text-xs w-full">
+              <caption className="sr-only">CSV preview</caption>
               <thead className="bg-stone-50">
                 <tr>
-                  <th className="px-3 py-2 text-left text-stone-600">Email</th>
-                  <th className="px-3 py-2 text-left text-stone-600">Name</th>
+                  <th scope="col" className="px-3 py-2 text-left text-stone-600">Email</th>
+                  <th scope="col" className="px-3 py-2 text-left text-stone-600">Name</th>
                 </tr>
               </thead>
               <tbody>

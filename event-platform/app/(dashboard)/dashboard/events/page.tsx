@@ -69,10 +69,12 @@ export default function EventsDashboard() {
         </Link>
       </div>
 
-      <div className="flex gap-1 mb-4 overflow-x-auto">
+      <div role="tablist" aria-label="Filter events by status" className="flex gap-1 mb-4 overflow-x-auto">
         {STATUSES.map((status) => (
           <button
             key={status}
+            role="tab"
+            aria-selected={activeTab === status}
             onClick={() => setActiveTab(status)}
             className={`px-4 py-2 rounded-md text-sm font-medium capitalize whitespace-nowrap ${
               activeTab === status
@@ -87,7 +89,7 @@ export default function EventsDashboard() {
 
       <div className="bg-stone-50 rounded-xl border border-stone-200 p-6">
         {isLoading ? (
-          <div className="text-center py-8 text-stone-500">Loading events...</div>
+          <div role="status" aria-live="polite" className="text-center py-8 text-stone-500">Loading events...</div>
         ) : (
           <EventTable
             events={filtered}

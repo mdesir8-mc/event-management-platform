@@ -70,11 +70,11 @@ export default function EditEventPage({ params }: { params: Promise<{ id: string
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
-      <div className="flex items-center gap-2 mb-2">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-2">
         <Link href="/dashboard/events" className="text-stone-800 hover:underline text-sm">My Events</Link>
-        <span className="text-stone-400">/</span>
-        <span className="text-sm text-stone-600">{event.title}</span>
-      </div>
+        <span aria-hidden="true" className="text-stone-400">/</span>
+        <span aria-current="page" className="text-sm text-stone-600">{event.title}</span>
+      </nav>
       <h1 className="text-2xl font-bold text-stone-900 mb-2">Edit Event</h1>
       <div className="flex gap-2 mb-6">
         <Link

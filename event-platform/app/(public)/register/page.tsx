@@ -69,6 +69,7 @@ export default function RegisterPage() {
               name="full_name"
               type="text"
               required
+              aria-required="true"
               minLength={2}
               value={form.full_name}
               onChange={handleChange}
@@ -82,6 +83,7 @@ export default function RegisterPage() {
               name="email"
               type="email"
               required
+              aria-required="true"
               value={form.email}
               onChange={handleChange}
               className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
@@ -96,12 +98,13 @@ export default function RegisterPage() {
               name="password"
               type="password"
               required
+              aria-required="true"
               minLength={8}
               value={form.password}
               onChange={handleChange}
               className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
             />
-            <p className="text-xs text-stone-500 mt-1">Min 8 chars, one uppercase letter, one number</p>
+            <p className="text-xs text-stone-600 mt-1">Min 8 chars, one uppercase letter, one number</p>
           </div>
           <div>
             <label htmlFor="role" className="block text-sm font-medium text-stone-700 mb-1">Account Type</label>
@@ -109,6 +112,7 @@ export default function RegisterPage() {
               id="role"
               name="role"
               required
+              aria-required="true"
               value={form.role}
               onChange={handleChange}
               className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
@@ -119,7 +123,7 @@ export default function RegisterPage() {
           </div>
           <div>
             <label htmlFor="organization_name" className="block text-sm font-medium text-stone-700 mb-1">
-              Organization Name <span className="text-stone-400 font-normal">(optional)</span>
+              Organization Name <span className="text-stone-600 font-normal">(optional)</span>
             </label>
             <input
               id="organization_name"

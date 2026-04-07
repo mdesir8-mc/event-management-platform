@@ -67,6 +67,7 @@ export default function LoginPage() {
               name="email"
               type="email"
               required
+              aria-required="true"
               value={form.email}
               onChange={handleChange}
               className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
@@ -79,6 +80,7 @@ export default function LoginPage() {
               name="password"
               type="password"
               required
+              aria-required="true"
               value={form.password}
               onChange={handleChange}
               className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
