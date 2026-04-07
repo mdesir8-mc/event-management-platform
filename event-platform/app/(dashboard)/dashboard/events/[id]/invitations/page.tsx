@@ -37,6 +37,15 @@ export default function InvitationsPage({ params }: { params: Promise<{ id: stri
     if (!authLoading && !user) router.replace('/login')
   }, [user, authLoading, router])
 
+  useEffect(() => {
+    if (!showSendModal && !showBulkModal) return
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') { setShowSendModal(false); setShowBulkModal(false) }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [showSendModal, showBulkModal])
+
   const fetchInvitations = useCallback(async (id: string) => {
     if (!token) return
     setIsLoading(true)
@@ -66,17 +75,17 @@ export default function InvitationsPage({ params }: { params: Promise<{ id: stri
   const declined = statusCounts.find((s) => s.status === 'declined')?._count ?? 0
   const pending = statusCounts.find((s) => s.status === 'pending')?._count ?? 0
 
-  if (authLoading) return <div className="flex items-center justify-center min-h-screen text-stone-500">Loading...</div>
+  if (authLoading) return <div role="status" className="flex items-center justify-center min-h-screen text-stone-500">Loading...</div>
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="flex items-center gap-2 mb-2">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-2">
         <Link href="/dashboard/events" className="text-stone-800 hover:underline text-sm">My Events</Link>
-        <span className="text-stone-400">/</span>
+        <span aria-hidden="true" className="text-stone-400">/</span>
         <Link href={`/dashboard/events/${eventId}`} className="text-stone-800 hover:underline text-sm">Event</Link>
-        <span className="text-stone-400">/</span>
-        <span className="text-sm text-stone-600">Invitations</span>
-      </div>
+        <span aria-hidden="true" className="text-stone-400">/</span>
+        <span aria-current="page" className="text-sm text-stone-600">Invitations</span>
+      </nav>
 
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-stone-900">Invitations</h1>
@@ -111,19 +120,25 @@ export default function InvitationsPage({ params }: { params: Promise<{ id: stri
       </div>
 
       {bulkResult && (
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md text-sm mb-4">
-          Bulk upload complete: {bulkResult.sent} sent, {bulkResult.failed} failed, {bulkResult.duplicates} duplicates
-          <button className="ml-4 underline" onClick={() => setBulkResult(null)}>Dismiss</button>
+        <div role="status" aria-live="polite" className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md text-sm mb-4 flex items-center justify-between">
+          <span>Bulk upload complete: {bulkResult.sent} sent, {bulkResult.failed} failed, {bulkResult.duplicates} duplicates</span>
+          <button
+            aria-label="Dismiss bulk upload result"
+            className="ml-4 underline"
+            onClick={() => setBulkResult(null)}
+          >
+            Dismiss
+          </button>
         </div>
       )}
 
       <div className="bg-stone-50 rounded-xl border border-stone-200 p-6">
         {isLoading ? (
-          <div className="text-center py-8 text-stone-500">Loading invitations...</div>
+          <div role="status" aria-live="polite" className="text-center py-8 text-stone-500">Loading invitations...</div>
         ) : (
           <InvitationTable
             invitations={invitations}
-            onResend={(inv) => {
+            onResend={() => {
               setShowSendModal(true)
             }}
           />
@@ -131,9 +146,14 @@ export default function InvitationsPage({ params }: { params: Promise<{ id: stri
       </div>
 
       {showSendModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="send-invitation-dialog-title"
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4"
+        >
           <div className="bg-stone-50 rounded-xl p-6 max-w-lg w-full">
-            <h2 className="text-lg font-semibold text-stone-900 mb-4">Send Invitation</h2>
+            <h2 id="send-invitation-dialog-title" className="text-lg font-semibold text-stone-900 mb-4">Send Invitation</h2>
             <InvitationForm
               eventId={eventId}
               onSuccess={() => {
@@ -147,9 +167,14 @@ export default function InvitationsPage({ params }: { params: Promise<{ id: stri
       )}
 
       {showBulkModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="bulk-invitation-dialog-title"
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4"
+        >
           <div className="bg-stone-50 rounded-xl p-6 max-w-lg w-full">
-            <h2 className="text-lg font-semibold text-stone-900 mb-4">Bulk Upload Invitations</h2>
+            <h2 id="bulk-invitation-dialog-title" className="text-lg font-semibold text-stone-900 mb-4">Bulk Upload Invitations</h2>
             <BulkInvitationForm
               eventId={eventId}
               onSuccess={(results) => {
