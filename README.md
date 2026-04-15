@@ -12,5 +12,5 @@ What RTW is good for:
 * reminders
 
 What's being built rn:
-* marketing algorithms
+* marketing algorithms and plugins
 * AI-powered seating charts based on room configs and attendee profiles
